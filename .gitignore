@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+venv/
+.venv/
+.env
+
+# Node
+node_modules/
+dist/
+build/
+.DS_Store
+
+# Expo
+.expo/
+.expo-shared/
+
+# Docker
+docker-compose.override.yml
+
+# Editor
+.vscode/
+.idea/
