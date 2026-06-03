@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.gateway
+    command: uvicorn backend.gateway.main:app --host 0.0.0.0 --port 8080 --reload
+    volumes:
+      - ../backend/gateway:/app
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../.env.example
+    depends_on:
+      - redis
+
+  mcp_server:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.mcp
+    command: uvicorn backend.mcp_server.server:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ../backend/mcp_server:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env.example
+    depends_on:
+      - redis
+
+  agent:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.agent
+    command: uvicorn backend.agent.agent_friday:app --host 0.0.0.0 --port 9000 --reload
+    volumes:
+      - ../backend/agent:/app
+    ports:
+      - "9000:9000"
+    env_file:
+      - ../.env.example
+    depends_on:
+      - redis
