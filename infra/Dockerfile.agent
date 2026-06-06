@@ -1,5 +1,0 @@
-FROM python:3.11-slim
-WORKDIR /app
-COPY backend/agent/pyproject.toml ./
-RUN pip install --no-cache-dir uv && uv install
-COPY backend/agent /app
