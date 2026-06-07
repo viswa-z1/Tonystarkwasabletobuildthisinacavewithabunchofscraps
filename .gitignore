@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+.uv/
+*.egg
+
+# Node
+node_modules/
+.pnpm-store/
+dist/
+.expo/
+*.expo/
+
+# Environment — NEVER COMMIT
+.env
+.env.local
+.env.*.local
+apps/web/.env.local
+apps/mobile/.env.local
+
+# Build outputs
+apps/web/dist/
+apps/mobile/.expo/
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
