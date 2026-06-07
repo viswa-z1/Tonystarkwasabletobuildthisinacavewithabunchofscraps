@@ -1,0 +1,35 @@
+name: Backend CI
+
+on:
+  push:
+    paths: ["backend/**"]
+  pull_request:
+    paths: ["backend/**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Test Gateway
+        working-directory: backend/gateway
+        run: |
+          uv sync
+          uv run pytest tests/ -v
+
+      - name: Test MCP Server
+        working-directory: backend/mcp_server
+        run: |
+          uv sync
+          uv run pytest tests/ -v
+
+      - name: Test Agent
+        working-directory: backend/agent
+        run: |
+          uv sync
+          uv run pytest tests/ -v
+
