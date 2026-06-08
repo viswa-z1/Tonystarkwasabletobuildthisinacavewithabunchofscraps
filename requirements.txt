@@ -1,0 +1,27 @@
+# Python 3.11+
+#
+# Consolidated Python dependencies for:
+# - backend/mcp_server
+# - backend/gateway
+# - backend/agent
+
+dateparser
+fastapi
+fastmcp
+httpx
+livekit
+livekit-agents[google,openai,sarvam,silero]>=0.12
+livekit-api
+mcp[cli]
+pydantic
+pyjwt
+python-dotenv
+python-jose[cryptography]
+pytz
+redis
+redis[asyncio]
+supabase
+uvicorn[standard]
+
+# Test dependencies
+pytest
