@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "FRIDAY",
+    "slug": "friday-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "friday",
+    "userInterfaceStyle": "dark",
+    "splash": { "backgroundColor": "#000a14" },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.viswa.fridayai",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "FRIDAY needs microphone access for voice commands.",
+        "UIBackgroundModes": ["audio"]
+      }
+    },
+    "android": {
+      "adaptiveIcon": { "foregroundImage": "./assets/adaptive-icon.png", "backgroundColor": "#000a14" },
+      "package": "com.viswa.fridayai",
+      "permissions": ["RECORD_AUDIO", "MODIFY_AUDIO_SETTINGS"]
+    },
+    "plugins": ["expo-router", "expo-av", "expo-secure-store", "expo-notifications"],
+    "extra": { "eas": { "projectId": "YOUR_EAS_PROJECT_ID" } }
+  }
+}
