@@ -1,5 +1,5 @@
 # Tonystarkwasabletobuildthisinacavewithabunchofscraps
-<<<<<<< HEAD
+
 
 > F.R.I.D.A.Y. — Fully Responsive Intelligent Digital Assistant for You
 
@@ -75,4 +75,4 @@ See [docs/SETUP.md](docs/SETUP.md) for full setup instructions.
 - [ ] Phase 7 — CI/CD & Deploy
 =======
 Friday - Personal AI assistant
->>>>>>> e33f57d585ccd0f3d05fda81a1264388a88a39a7
+
