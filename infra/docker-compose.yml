@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  mcp_server:
+    build:
+      context: ../backend/mcp_server
+      dockerfile: ../../infra/Dockerfile.mcp
+    ports: ["8000:8000"]
+    env_file: ../.env
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  gateway:
+    build:
+      context: ../backend/gateway
+      dockerfile: ../../infra/Dockerfile.gateway
+    ports: ["8080:8080"]
+    env_file: ../.env
+    depends_on:
+      mcp_server:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  agent:
+    build:
+      context: ../backend/agent
+      dockerfile: ../../infra/Dockerfile.agent
+    env_file: ../.env
+    depends_on:
+      mcp_server:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    restart: unless-stopped
+
