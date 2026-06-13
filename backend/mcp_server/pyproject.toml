@@ -1,0 +1,21 @@
+[project]
+name = "friday-mcp-server"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp[cli]",
+    "fastmcp",
+    "python-dotenv",
+    "httpx",
+    "pytz",
+    "redis",
+    "dateparser",
+]
+
+[project.scripts]
+friday = "server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
