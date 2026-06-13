@@ -1,0 +1,3 @@
+[tool.uv.workspace]
+members = ["gateway", "agent", "mcp_server"]
+
