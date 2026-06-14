@@ -1,20 +1,64 @@
-:root {
-  --accent-cyan: #00d4ff;
-  --accent-amber: #ffb300;
-  --accent-green: #00ff88;
-  --glass-bg: rgba(0, 10, 20, 0.85);
-  --glass-border: rgba(0, 212, 255, 0.2);
-  --grid-color: rgba(0, 212, 255, 0.05);
-  --font-display: "Orbitron", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background:         220 100% 4%;
+    --foreground:         200 100% 94%;
+    --primary:            195 100% 50%;
+    --primary-foreground: 220 100% 4%;
+    --muted:              220 25% 10%;
+    --muted-foreground:   200 30% 50%;
+    --border:             195 80% 16%;
+
+    --accent-cyan:  #00d4ff;
+    --accent-amber: #ffb300;
+    --accent-green: #00ff88;
+    --accent-red:   #ff3366;
+    --glass-bg:     rgba(0, 10, 20, 0.92);
+    --glass-border: rgba(0, 212, 255, 0.18);
+    --grid-color:   rgba(0, 212, 255, 0.04);
+    --font-display: "Orbitron", sans-serif;
+    --font-mono:    "JetBrains Mono", monospace;
+  }
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: #000a14;
-  color: #e0f0ff;
+  color: #d0eeff;
   font-family: var(--font-mono);
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ── HUD grid background ───────────────────────────────── */
+.hud-grid {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Glow text ─────────────────────────────────────────── */
+.glow-cyan  { text-shadow: 0 0 8px #00d4ff, 0 0 24px #00d4ff44; }
+.glow-green { text-shadow: 0 0 8px #00ff88, 0 0 24px #00ff8844; }
+.glow-amber { text-shadow: 0 0 8px #ffb300, 0 0 24px #ffb30044; }
+
+/* ── Glow box ──────────────────────────────────────────── */
+.glow-box-cyan  { box-shadow: 0 0 18px #00d4ff22, inset 0 0 12px #00d4ff0a; }
+.glow-box-green { box-shadow: 0 0 18px #00ff8822, inset 0 0 12px #00ff880a; }
+
+/* ── Glass panel ───────────────────────────────────────── */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.2); border-radius: 2px; }
