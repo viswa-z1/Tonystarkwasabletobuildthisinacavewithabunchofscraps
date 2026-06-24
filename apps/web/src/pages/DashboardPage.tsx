@@ -5,6 +5,7 @@ import ArcReactor from "@/components/ArcReactor"
 import ClockPanel from "@/components/ClockPanel"
 import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
+import WeatherPanel from "@/components/WeatherPanel"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -136,9 +137,12 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          {/* Right — transcript */}
-          <div className="col-span-1 min-h-0">
-            <TranscriptPanel messages={messages} />
+          {/* Right — transcript + weather rail */}
+          <div className="col-span-1 flex flex-col gap-4 min-h-0">
+            <div className="flex-1 min-h-0">
+              <TranscriptPanel messages={messages} />
+            </div>
+            <WeatherPanel />
           </div>
         </div>
 
