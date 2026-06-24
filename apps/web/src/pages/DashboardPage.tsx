@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
@@ -11,6 +11,7 @@ import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import AccentSwitcher from "@/components/AccentSwitcher"
 import { toast } from "@/stores/toastStore"
+import { useUIStore } from "@/stores/uiStore"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
 import TranscriptPanel, { Message } from "@/components/TranscriptPanel"
@@ -62,11 +63,42 @@ function BootScreen() {
   )
 }
 
+const ORB_CYCLE: OrbState[] = ["idle", "listening", "thinking", "speaking"]
+
+function isTyping(el: EventTarget | null) {
+  const node = el as HTMLElement | null
+  if (!node) return false
+  return node.tagName === "INPUT" || node.tagName === "TEXTAREA" || node.isContentEditable
+}
+
 export default function DashboardPage() {
   const [booted, setBooted]   = useState(false)
-  const [orbState]            = useState<OrbState>("idle")
-  const [messages]            = useState<Message[]>([])
+  const orbState              = useUIStore((s) => s.orbState)
+  const setOrbState           = useUIStore((s) => s.setOrbState)
+  const [messages, setMessages] = useState<Message[]>([])
   const contentRef            = useRef<HTMLDivElement>(null)
+
+  // Tap the orb (or press Space) to walk the voice pipeline state machine and
+  // drive a short scripted exchange into the transcript.
+  const advanceOrb = useCallback(() => {
+    const next = ORB_CYCLE[(ORB_CYCLE.indexOf(orbState) + 1) % ORB_CYCLE.length]
+    setOrbState(next)
+    if (next === "listening")
+      setMessages((m) => [...m, { id: crypto.randomUUID(), role: "user", text: "Friday, give me a status report." }])
+    else if (next === "speaking")
+      setMessages((m) => [...m, { id: crypto.randomUUID(), role: "assistant", text: "All systems nominal — reactor at 98%, no contacts inbound." }])
+  }, [orbState, setOrbState])
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.code === "Space" && !isTyping(e.target)) {
+        e.preventDefault()
+        advanceOrb()
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [advanceOrb])
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -143,10 +175,10 @@ export default function DashboardPage() {
 
           {/* Center — orb + waveform */}
           <div className="col-span-1 flex flex-col items-center justify-center gap-5">
-            <VoiceOrb state={orbState} />
+            <VoiceOrb state={orbState} onClick={advanceOrb} />
             <WaveformVisualizer state={orbState} />
             <p className="font-mono text-[8px] tracking-[0.3em] text-hud-cyan/25 animate-hud-blink">
-              TAP ORB TO ACTIVATE
+              {orbState === "idle" ? "TAP ORB OR PRESS SPACE TO ACTIVATE" : `STATE · ${orbState.toUpperCase()}`}
             </p>
           </div>
 
