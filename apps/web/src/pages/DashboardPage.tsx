@@ -9,6 +9,7 @@ import WeatherPanel from "@/components/WeatherPanel"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
+import AccentSwitcher from "@/components/AccentSwitcher"
 import { toast } from "@/stores/toastStore"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -102,14 +103,20 @@ export default function DashboardPage() {
         {/* Top bar */}
         <div className="panel opacity-0 flex items-center justify-between">
           <div>
-            <h1 className="font-display text-[11px] tracking-[0.35em] text-hud-cyan glow-cyan">
+            <h1
+              className="font-display text-[11px] tracking-[0.35em]"
+              style={{ color: "var(--accent)", textShadow: "0 0 8px var(--accent), 0 0 24px color-mix(in srgb, var(--accent) 30%, transparent)" }}
+            >
               F.R.I.D.A.Y.
             </h1>
             <p className="font-mono text-[8px] text-hud-cyan/35 tracking-[0.2em] mt-0.5">
               FULLY RESPONSIVE INTELLIGENT DIGITAL ASSISTANT FOR YOU
             </p>
           </div>
-          <StatusBar />
+          <div className="flex items-center gap-4">
+            <AccentSwitcher />
+            <StatusBar />
+          </div>
         </div>
 
         {/* Main grid */}
