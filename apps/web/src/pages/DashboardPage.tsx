@@ -6,6 +6,7 @@ import ClockPanel from "@/components/ClockPanel"
 import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
 import WeatherPanel from "@/components/WeatherPanel"
+import ReminderPanel from "@/components/ReminderPanel"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
@@ -182,12 +183,13 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          {/* Right — transcript + weather rail */}
-          <div className="col-span-1 flex flex-col gap-4 min-h-0">
-            <div className="flex-1 min-h-0">
+          {/* Right — transcript + weather + reminders rail */}
+          <div className="col-span-1 flex flex-col gap-4 min-h-0 overflow-y-auto pr-1">
+            <div className="flex-1 min-h-[140px]">
               <TranscriptPanel messages={messages} />
             </div>
             <WeatherPanel />
+            <ReminderPanel />
           </div>
         </div>
 
