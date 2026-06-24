@@ -4,6 +4,7 @@ import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
 import ClockPanel from "@/components/ClockPanel"
 import VitalsPanel from "@/components/VitalsPanel"
+import RadarSweep from "@/components/RadarSweep"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -123,6 +124,7 @@ export default function DashboardPage() {
             </div>
 
             <VitalsPanel />
+            <RadarSweep />
           </div>
 
           {/* Center — orb + waveform */}
