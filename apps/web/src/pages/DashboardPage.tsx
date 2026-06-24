@@ -9,6 +9,7 @@ import WeatherPanel from "@/components/WeatherPanel"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
+import { toast } from "@/stores/toastStore"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
 import TranscriptPanel, { Message } from "@/components/TranscriptPanel"
@@ -67,7 +68,10 @@ export default function DashboardPage() {
   const contentRef            = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const t = setTimeout(() => setBooted(true), BOOT_LINES.length * 480 + 800)
+    const t = setTimeout(() => {
+      setBooted(true)
+      toast.success("F.R.I.D.A.Y. online — all systems nominal")
+    }, BOOT_LINES.length * 480 + 800)
     return () => clearTimeout(t)
   }, [])
 
