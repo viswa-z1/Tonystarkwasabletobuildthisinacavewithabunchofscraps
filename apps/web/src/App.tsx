@@ -4,6 +4,7 @@ import DashboardPage from "./pages/DashboardPage"
 import HistoryPage from "./pages/HistoryPage"
 import CommandPalette from "./components/CommandPalette"
 import ToastStack from "./components/ToastStack"
+import ShortcutsOverlay from "./components/ShortcutsOverlay"
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <CommandPalette />
+      <ShortcutsOverlay />
       <ToastStack />
     </BrowserRouter>
   )
