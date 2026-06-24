@@ -3,6 +3,7 @@ import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
 import ClockPanel from "@/components/ClockPanel"
+import VitalsPanel from "@/components/VitalsPanel"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -120,6 +121,8 @@ export default function DashboardPage() {
                 </div>
               ))}
             </div>
+
+            <VitalsPanel />
           </div>
 
           {/* Center — orb + waveform */}
