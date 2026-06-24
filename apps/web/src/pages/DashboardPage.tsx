@@ -6,6 +6,7 @@ import ClockPanel from "@/components/ClockPanel"
 import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
 import WeatherPanel from "@/components/WeatherPanel"
+import NewsTicker from "@/components/NewsTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -144,6 +145,11 @@ export default function DashboardPage() {
             </div>
             <WeatherPanel />
           </div>
+        </div>
+
+        {/* News ticker */}
+        <div className="panel opacity-0">
+          <NewsTicker />
         </div>
 
         {/* Bottom bar */}
