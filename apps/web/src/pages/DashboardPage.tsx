@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
+import ArcReactor from "@/components/ArcReactor"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -104,15 +105,19 @@ export default function DashboardPage() {
         {/* Main grid */}
         <div className="panel opacity-0 flex-1 grid grid-cols-3 gap-4 min-h-0">
 
-          {/* Left — system data */}
-          <div className="col-span-1 glass-panel rounded-sm p-4 flex flex-col gap-3">
-            <p className="font-mono text-[8px] tracking-[0.3em] text-hud-cyan/40">SYSTEM STATUS</p>
-            {SYSINFO.map((s) => (
-              <div key={s.label} className="flex justify-between items-center border-b border-hud-cyan/8 pb-2">
-                <span className="font-mono text-[10px] text-hud-cyan/50">{s.label}</span>
-                <span className="font-mono text-[10px]" style={{ color: s.color }}>{s.value}</span>
-              </div>
-            ))}
+          {/* Left — system widgets rail */}
+          <div className="col-span-1 flex flex-col gap-4 min-h-0 overflow-y-auto pr-1">
+            <ArcReactor />
+
+            <div className="glass-panel rounded-sm p-4 flex flex-col gap-3">
+              <p className="font-mono text-[8px] tracking-[0.3em] text-hud-cyan/40">SYSTEM STATUS</p>
+              {SYSINFO.map((s) => (
+                <div key={s.label} className="flex justify-between items-center border-b border-hud-cyan/8 pb-2">
+                  <span className="font-mono text-[10px] text-hud-cyan/50">{s.label}</span>
+                  <span className="font-mono text-[10px]" style={{ color: s.color }}>{s.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Center — orb + waveform */}
