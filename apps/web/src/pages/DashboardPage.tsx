@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
+import ClockPanel from "@/components/ClockPanel"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
@@ -108,6 +109,7 @@ export default function DashboardPage() {
           {/* Left — system widgets rail */}
           <div className="col-span-1 flex flex-col gap-4 min-h-0 overflow-y-auto pr-1">
             <ArcReactor />
+            <ClockPanel />
 
             <div className="glass-panel rounded-sm p-4 flex flex-col gap-3">
               <p className="font-mono text-[8px] tracking-[0.3em] text-hud-cyan/40">SYSTEM STATUS</p>
