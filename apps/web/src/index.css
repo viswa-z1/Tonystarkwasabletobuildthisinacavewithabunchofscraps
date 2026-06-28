@@ -59,6 +59,18 @@ body {
   backdrop-filter: blur(12px);
 }
 
+/* ── Skeleton shimmer ──────────────────────────────────── */
+@keyframes hud-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.hud-shimmer {
+  background: linear-gradient(90deg, rgba(0,212,255,0.04) 25%, rgba(0,212,255,0.14) 37%, rgba(0,212,255,0.04) 63%);
+  background-size: 200% 100%;
+  animation: hud-shimmer 1.6s ease-in-out infinite;
+}
+.hud-skeleton-static { background: rgba(0,212,255,0.07); }
+
 /* ── Scrollbar ─────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }

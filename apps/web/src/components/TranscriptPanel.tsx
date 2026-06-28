@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import anime from "animejs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export interface Message {
   id: string
@@ -41,6 +42,13 @@ function MessageRow({ msg }: { msg: Message }) {
 
 export default function TranscriptPanel({ messages = [] }: { messages?: Message[] }) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [connecting, setConnecting] = useState(true)
+
+  // Brief loading affordance while the channel "connects".
+  useEffect(() => {
+    const t = setTimeout(() => setConnecting(false), 1100)
+    return () => clearTimeout(t)
+  }, [])
 
   useEffect(() => {
     if (scrollRef.current)
@@ -54,7 +62,13 @@ export default function TranscriptPanel({ messages = [] }: { messages?: Message[
       </CardHeader>
       <CardContent className="flex-1 overflow-hidden p-3">
         <div ref={scrollRef} className="h-full overflow-y-auto space-y-3 pr-1">
-          {messages.length === 0 ? (
+          {connecting ? (
+            <div className="space-y-2.5" aria-hidden>
+              <Skeleton className="h-2.5 w-1/3" />
+              <Skeleton className="h-2.5 w-4/5" />
+              <Skeleton className="h-2.5 w-2/3" />
+            </div>
+          ) : messages.length === 0 ? (
             <p className="text-[10px] font-mono tracking-widest text-hud-cyan/25 animate-hud-blink">
               AWAITING INPUT...
             </p>
