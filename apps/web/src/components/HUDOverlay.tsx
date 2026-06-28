@@ -1,6 +1,7 @@
 import { useEffect, useRef, ReactNode } from "react"
 import anime from "animejs"
 import { useReducedMotion } from "@/hooks/useReducedMotion"
+import AmbientField from "@/components/AmbientField"
 
 type Corner = "tl" | "tr" | "bl" | "br"
 
@@ -67,6 +68,9 @@ export default function HUDOverlay({ children }: { children: ReactNode }) {
 
   return (
     <div className="fixed inset-0 hud-grid overflow-hidden" style={{ background: "var(--glass-bg)" }}>
+      {/* Ambient depth field */}
+      <AmbientField />
+
       {/* Scan line */}
       {!reduce && (
         <div
