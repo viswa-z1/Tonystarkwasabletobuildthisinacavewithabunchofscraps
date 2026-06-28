@@ -5,6 +5,7 @@ import ArcReactor from "@/components/ArcReactor"
 import ClockPanel from "@/components/ClockPanel"
 import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
+import ActivityLog from "@/components/ActivityLog"
 import WeatherPanel from "@/components/WeatherPanel"
 import ReminderPanel from "@/components/ReminderPanel"
 import NewsTicker from "@/components/NewsTicker"
@@ -182,6 +183,7 @@ export default function DashboardPage() {
 
             <VitalsPanel />
             <RadarSweep />
+            <ActivityLog />
           </div>
 
           {/* Center — orb + waveform */}
