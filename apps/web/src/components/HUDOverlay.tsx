@@ -1,5 +1,6 @@
 import { useEffect, useRef, ReactNode } from "react"
 import anime from "animejs"
+import { useReducedMotion } from "@/hooks/useReducedMotion"
 
 type Corner = "tl" | "tr" | "bl" | "br"
 
@@ -48,30 +49,35 @@ function HUDCorner({ pos }: { pos: Corner }) {
 
 export default function HUDOverlay({ children }: { children: ReactNode }) {
   const scanRef = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion()
 
-  // Repeating scan line sweep
+  // Repeating scan line sweep — purely ambient, so it stands down when the
+  // user (or the OS) asks for reduced motion.
   useEffect(() => {
-    if (!scanRef.current) return
-    anime({
+    if (reduce || !scanRef.current) return
+    const anim = anime({
       targets: scanRef.current,
       translateY: ["-2px", "100vh"],
       duration: 7000,
       easing: "linear",
       loop: true,
     })
-  }, [])
+    return () => anim.pause()
+  }, [reduce])
 
   return (
     <div className="fixed inset-0 hud-grid overflow-hidden" style={{ background: "var(--glass-bg)" }}>
       {/* Scan line */}
-      <div
-        ref={scanRef}
-        className="absolute left-0 right-0 pointer-events-none z-0"
-        style={{
-          height: 1,
-          background: "linear-gradient(90deg, transparent 0%, #00d4ff33 30%, #00d4ff66 50%, #00d4ff33 70%, transparent 100%)",
-        }}
-      />
+      {!reduce && (
+        <div
+          ref={scanRef}
+          className="absolute left-0 right-0 pointer-events-none z-0"
+          style={{
+            height: 1,
+            background: "linear-gradient(90deg, transparent 0%, #00d4ff33 30%, #00d4ff66 50%, #00d4ff33 70%, transparent 100%)",
+          }}
+        />
+      )}
 
       {/* HUD corner brackets */}
       <HUDCorner pos="tl" />

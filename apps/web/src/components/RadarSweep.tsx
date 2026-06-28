@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+import { useReducedMotion } from "@/hooks/useReducedMotion"
 
 interface Blip {
   /** angle in radians */
@@ -17,6 +18,7 @@ export default function RadarSweep({ size = 168 }: { size?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef    = useRef(0)
   const angleRef  = useRef(0)
+  const reduce    = useReducedMotion()
   const blipsRef  = useRef<Blip[]>(
     Array.from({ length: 5 }, () => ({
       a: Math.random() * Math.PI * 2,
@@ -92,13 +94,15 @@ export default function RadarSweep({ size = 168 }: { size?: number }) {
         ctx.shadowBlur = 0
       }
 
+      // Reduced motion: render one static frame, no sweep, no rAF loop.
+      if (reduce) return
       angleRef.current += 0.025
       rafRef.current = requestAnimationFrame(draw)
     }
 
     draw()
     return () => cancelAnimationFrame(rafRef.current)
-  }, [])
+  }, [reduce])
 
   return (
     <div className="glass-panel rounded-sm p-4 flex flex-col items-center gap-2">

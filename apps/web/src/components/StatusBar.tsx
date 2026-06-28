@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import anime from "animejs"
 import { Badge } from "@/components/ui/badge"
+import { useReducedMotion } from "@/hooks/useReducedMotion"
 
 const SERVICES = [
   { label: "STT", variant: "green" },
@@ -11,8 +12,10 @@ const SERVICES = [
 
 function BlinkDot({ color }: { color: string }) {
   const ref = useRef<HTMLSpanElement>(null)
+  const reduce = useReducedMotion()
   useEffect(() => {
-    anime({
+    if (reduce) return
+    const anim = anime({
       targets: ref.current,
       opacity: [1, 0.15, 1],
       duration: 2200,
@@ -20,7 +23,8 @@ function BlinkDot({ color }: { color: string }) {
       loop: true,
       delay: Math.random() * 1000,
     })
-  }, [])
+    return () => anim.pause()
+  }, [reduce])
   return (
     <span
       ref={ref}

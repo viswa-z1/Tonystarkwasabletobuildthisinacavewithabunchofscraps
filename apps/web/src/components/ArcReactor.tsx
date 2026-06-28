@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import anime from "animejs"
+import { useReducedMotion } from "@/hooks/useReducedMotion"
 
 interface Props {
   /** Diameter in px. */
@@ -18,8 +19,10 @@ export default function ArcReactor({ size = 116, output = "98%" }: Props) {
   const ring2Ref = useRef<HTMLDivElement>(null)
   const glowRef  = useRef<HTMLDivElement>(null)
   const anims    = useRef<anime.AnimeInstance[]>([])
+  const reduce   = useReducedMotion()
 
   useEffect(() => {
+    if (reduce) return
     const ring1 = anime({
       targets: ring1Ref.current,
       rotate: "360deg",
@@ -50,7 +53,7 @@ export default function ArcReactor({ size = 116, output = "98%" }: Props) {
     })
     anims.current = [ring1, ring2, core, glow]
     return () => anims.current.forEach((a) => a.pause())
-  }, [])
+  }, [reduce])
 
   const cyan = "#00d4ff"
 

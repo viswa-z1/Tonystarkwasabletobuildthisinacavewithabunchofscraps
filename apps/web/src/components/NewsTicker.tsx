@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import anime from "animejs"
+import { useReducedMotion } from "@/hooks/useReducedMotion"
 
 const HEADLINES = [
   "MARKETS RALLY AS TECH SECTOR LEADS GLOBAL GAINS",
@@ -16,8 +17,10 @@ const HEADLINES = [
  */
 export default function NewsTicker() {
   const trackRef = useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion()
 
   useEffect(() => {
+    if (reduce) return
     const anim = anime({
       targets: trackRef.current,
       translateX: ["0%", "-50%"],
@@ -26,7 +29,7 @@ export default function NewsTicker() {
       loop: true,
     })
     return () => anim.pause()
-  }, [])
+  }, [reduce])
 
   const Item = ({ text }: { text: string }) => (
     <span className="inline-flex items-center font-mono text-[10px] tracking-widest text-hud-cyan/55 whitespace-nowrap">

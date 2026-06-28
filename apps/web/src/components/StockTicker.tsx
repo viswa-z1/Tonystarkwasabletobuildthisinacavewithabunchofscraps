@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import anime from "animejs"
+import { useReducedMotion } from "@/hooks/useReducedMotion"
 
 interface Quote {
   sym: string
@@ -32,8 +33,10 @@ function tick(q: Quote): Quote {
 export default function StockTicker() {
   const trackRef = useRef<HTMLDivElement>(null)
   const [quotes, setQuotes] = useState<Quote[]>(SEED)
+  const reduce = useReducedMotion()
 
   useEffect(() => {
+    if (reduce) return
     const anim = anime({
       targets: trackRef.current,
       translateX: ["-50%", "0%"],
@@ -42,7 +45,7 @@ export default function StockTicker() {
       loop: true,
     })
     return () => anim.pause()
-  }, [])
+  }, [reduce])
 
   useEffect(() => {
     const t = setInterval(() => setQuotes((prev) => prev.map(tick)), 2200)
