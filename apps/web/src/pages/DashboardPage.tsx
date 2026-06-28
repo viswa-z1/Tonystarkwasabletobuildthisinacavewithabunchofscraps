@@ -96,7 +96,7 @@ export default function DashboardPage() {
     if (next === "listening")
       setMessages((m) => [...m, { id: crypto.randomUUID(), role: "user", text: "Friday, give me a status report." }])
     else if (next === "speaking")
-      setMessages((m) => [...m, { id: crypto.randomUUID(), role: "assistant", text: "All systems nominal — reactor at 98%, no contacts inbound." }])
+      setMessages((m) => [...m, { id: crypto.randomUUID(), role: "assistant", text: "All systems nominal. Reactor at 98%, no contacts inbound." }])
   }, [orbState, setOrbState])
 
   useEffect(() => {
@@ -113,7 +113,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const t = setTimeout(() => {
       setBooted(true)
-      toast.success("F.R.I.D.A.Y. online — all systems nominal")
+      toast.success("F.R.I.D.A.Y. online. All systems nominal")
     }, BOOT_LINES.length * 480 + 800)
     return () => clearTimeout(t)
   }, [])

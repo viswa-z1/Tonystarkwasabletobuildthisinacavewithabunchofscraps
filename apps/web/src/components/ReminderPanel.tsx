@@ -46,7 +46,7 @@ export default function ReminderPanel() {
     if (!text) return
     setItems((prev) => [{ id: crypto.randomUUID(), text, done: false }, ...prev])
     setDraft("")
-    toast.info(`Reminder set — ${text}`)
+    toast.info(`Reminder set: ${text}`)
   }
 
   const toggle = (id: string) =>

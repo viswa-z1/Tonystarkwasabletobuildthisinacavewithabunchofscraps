@@ -21,7 +21,7 @@ export default function WorldMapPanel({ onClose }: { onClose: () => void }) {
       <Card className="h-full flex flex-col">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>WORLD MONITOR — LIVE</CardTitle>
+            <CardTitle>WORLD MONITOR · LIVE</CardTitle>
             <Button variant="ghost" size="sm" onClick={onClose}>✕ CLOSE</Button>
           </div>
         </CardHeader>

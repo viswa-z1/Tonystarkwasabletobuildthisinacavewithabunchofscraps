@@ -16,7 +16,7 @@ interface Session {
 const SESSIONS: Session[] = [
   { id: "1", date: "2026-06-14 · 00:12", duration: "14m", messages: 28, summary: "World news brief, finance market update, weather check" },
   { id: "2", date: "2026-06-13 · 21:45", duration: "9m",  messages: 18, summary: "System diagnostics and stock market summary" },
-  { id: "3", date: "2026-06-13 · 18:30", duration: "6m",  messages: 12, summary: "Evening briefing — global headlines" },
+  { id: "3", date: "2026-06-13 · 18:30", duration: "6m",  messages: 12, summary: "Evening briefing · global headlines" },
   { id: "4", date: "2026-06-12 · 10:05", duration: "22m", messages: 44, summary: "Deep dive on geopolitical events and finance outlook" },
 ]
 

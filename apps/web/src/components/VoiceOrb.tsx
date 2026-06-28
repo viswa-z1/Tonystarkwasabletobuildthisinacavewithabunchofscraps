@@ -103,7 +103,16 @@ export default function VoiceOrb({ state, onClick }: Props) {
     <div
       ref={wrapRef}
       onClick={onClick}
-      className="relative flex items-center justify-center cursor-pointer select-none"
+      onKeyDown={(e) => {
+        if (onClick && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault()
+          onClick()
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`F.R.I.D.A.Y. voice orb, state ${state}. Activate to advance.`}
+      className="relative flex items-center justify-center cursor-pointer select-none rounded-full"
       style={{ width: 180, height: 180 }}
     >
       {/* Pulse rings */}
