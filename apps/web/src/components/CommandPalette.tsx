@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import anime from "animejs"
 import { useNavigate } from "react-router-dom"
 import { useUIStore } from "@/stores/uiStore"
+import { usePrefsStore } from "@/stores/prefsStore"
 
 interface Command {
   id: string
@@ -18,6 +19,11 @@ const COMMANDS: Command[] = [
   { id: "idle",    label: "Stand Down",        hint: "VOICE", run: () => useUIStore.getState().setOrbState("idle") },
   { id: "map-on",  label: "Show World Map",     hint: "HUD", run: () => useUIStore.getState().setShowWorldMap(true) },
   { id: "map-off", label: "Hide World Map",     hint: "HUD", run: () => useUIStore.getState().setShowWorldMap(false) },
+  { id: "settings",  label: "Open Settings",        hint: "SYS",    run: () => useUIStore.getState().setSettingsOpen(true) },
+  { id: "compact",   label: "Density: Compact",     hint: "VIEW",   run: () => usePrefsStore.getState().setDensity("compact") },
+  { id: "comfort",   label: "Density: Comfortable", hint: "VIEW",   run: () => usePrefsStore.getState().setDensity("comfortable") },
+  { id: "calm",      label: "Reduce Motion",        hint: "MOTION", run: () => usePrefsStore.getState().setMotionPref("reduced") },
+  { id: "lively",    label: "Full Motion",          hint: "MOTION", run: () => usePrefsStore.getState().setMotionPref("full") },
 ]
 
 /**
