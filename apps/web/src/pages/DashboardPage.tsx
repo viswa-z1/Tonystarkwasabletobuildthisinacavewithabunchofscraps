@@ -11,6 +11,7 @@ import ActivityLog from "@/components/ActivityLog"
 import WeatherPanel from "@/components/WeatherPanel"
 import FocusTimer from "@/components/FocusTimer"
 import ReminderPanel from "@/components/ReminderPanel"
+import NotificationCenter from "@/components/NotificationCenter"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
@@ -210,6 +211,7 @@ export default function DashboardPage() {
             <WeatherPanel />
             <FocusTimer />
             <ReminderPanel />
+            <NotificationCenter />
           </div>
         </div>
 
