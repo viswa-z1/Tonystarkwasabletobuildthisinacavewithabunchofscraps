@@ -17,6 +17,7 @@ import { useUIStore } from "@/stores/uiStore"
 import { usePrefsStore } from "@/stores/prefsStore"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
+import ConnectionStatus from "@/components/ConnectionStatus"
 import TranscriptPanel, { Message } from "@/components/TranscriptPanel"
 
 const BOOT_LINES = [
@@ -153,6 +154,7 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-4">
+            <ConnectionStatus />
             <StatusBar />
             <button
               onClick={() => setSettingsOpen(true)}
