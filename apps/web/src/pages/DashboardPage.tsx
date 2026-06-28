@@ -10,8 +10,6 @@ import ReminderPanel from "@/components/ReminderPanel"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
-import AccentSwitcher from "@/components/AccentSwitcher"
-import DensityToggle from "@/components/DensityToggle"
 import { toast } from "@/stores/toastStore"
 import { useUIStore } from "@/stores/uiStore"
 import { usePrefsStore } from "@/stores/prefsStore"
@@ -78,6 +76,7 @@ export default function DashboardPage() {
   const [booted, setBooted]   = useState(false)
   const orbState              = useUIStore((s) => s.orbState)
   const setOrbState           = useUIStore((s) => s.setOrbState)
+  const setSettingsOpen       = useUIStore((s) => s.setSettingsOpen)
   const [messages, setMessages] = useState<Message[]>([])
   const contentRef            = useRef<HTMLDivElement>(null)
   const density               = usePrefsStore((s) => s.density)
@@ -152,9 +151,14 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <DensityToggle />
-            <AccentSwitcher />
             <StatusBar />
+            <button
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Open settings"
+              className="font-mono text-sm leading-none text-hud-cyan/55 hover:text-hud-cyan border border-hud-cyan/20 hover:border-hud-cyan/45 rounded-sm w-7 h-7 flex items-center justify-center transition-colors"
+            >
+              <span aria-hidden>⚙</span>
+            </button>
           </div>
         </div>
 

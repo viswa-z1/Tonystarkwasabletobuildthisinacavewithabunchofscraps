@@ -5,6 +5,7 @@ import HistoryPage from "./pages/HistoryPage"
 import CommandPalette from "./components/CommandPalette"
 import ToastStack from "./components/ToastStack"
 import ShortcutsOverlay from "./components/ShortcutsOverlay"
+import SettingsPanel from "./components/SettingsPanel"
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       </Routes>
       <CommandPalette />
       <ShortcutsOverlay />
+      <SettingsPanel />
       <ToastStack />
     </BrowserRouter>
   )
