@@ -3,6 +3,7 @@ import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
 import ClockPanel from "@/components/ClockPanel"
+import WorldClocks from "@/components/WorldClocks"
 import LatencySparkline from "@/components/LatencySparkline"
 import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
@@ -174,6 +175,7 @@ export default function DashboardPage() {
           <div className={`col-span-1 flex flex-col ${gap} min-h-0 overflow-y-auto pr-1`}>
             <ArcReactor />
             <ClockPanel />
+            <WorldClocks />
             <LatencySparkline />
 
             <div className="glass-panel rounded-sm p-4 flex flex-col gap-3">
