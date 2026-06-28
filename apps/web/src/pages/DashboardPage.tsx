@@ -11,8 +11,10 @@ import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import AccentSwitcher from "@/components/AccentSwitcher"
+import DensityToggle from "@/components/DensityToggle"
 import { toast } from "@/stores/toastStore"
 import { useUIStore } from "@/stores/uiStore"
+import { usePrefsStore } from "@/stores/prefsStore"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
 import TranscriptPanel, { Message } from "@/components/TranscriptPanel"
@@ -78,6 +80,9 @@ export default function DashboardPage() {
   const setOrbState           = useUIStore((s) => s.setOrbState)
   const [messages, setMessages] = useState<Message[]>([])
   const contentRef            = useRef<HTMLDivElement>(null)
+  const density               = usePrefsStore((s) => s.density)
+  const gap                   = density === "compact" ? "gap-2" : "gap-4"
+  const pad                   = density === "compact" ? "p-3" : "p-5"
 
   // Tap the orb (or press Space) to walk the voice pipeline state machine and
   // drive a short scripted exchange into the transcript.
@@ -131,7 +136,7 @@ export default function DashboardPage() {
 
   return (
     <HUDOverlay>
-      <div ref={contentRef} className="h-full flex flex-col p-5 gap-4">
+      <div ref={contentRef} className={`h-full flex flex-col ${pad} ${gap}`}>
 
         {/* Top bar */}
         <div className="panel opacity-0 flex items-center justify-between">
@@ -147,16 +152,17 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-4">
+            <DensityToggle />
             <AccentSwitcher />
             <StatusBar />
           </div>
         </div>
 
         {/* Main grid */}
-        <div className="panel opacity-0 flex-1 grid grid-cols-3 gap-4 min-h-0">
+        <div className={`panel opacity-0 flex-1 grid grid-cols-3 ${gap} min-h-0`}>
 
           {/* Left — system widgets rail */}
-          <div className="col-span-1 flex flex-col gap-4 min-h-0 overflow-y-auto pr-1">
+          <div className={`col-span-1 flex flex-col ${gap} min-h-0 overflow-y-auto pr-1`}>
             <ArcReactor />
             <ClockPanel />
 
@@ -184,7 +190,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Right — transcript + weather + reminders rail */}
-          <div className="col-span-1 flex flex-col gap-4 min-h-0 overflow-y-auto pr-1">
+          <div className={`col-span-1 flex flex-col ${gap} min-h-0 overflow-y-auto pr-1`}>
             <div className="flex-1 min-h-[140px]">
               <TranscriptPanel messages={messages} />
             </div>
