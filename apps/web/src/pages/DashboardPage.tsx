@@ -3,6 +3,7 @@ import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
 import ClockPanel from "@/components/ClockPanel"
+import LatencySparkline from "@/components/LatencySparkline"
 import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
 import ActivityLog from "@/components/ActivityLog"
@@ -170,6 +171,7 @@ export default function DashboardPage() {
           <div className={`col-span-1 flex flex-col ${gap} min-h-0 overflow-y-auto pr-1`}>
             <ArcReactor />
             <ClockPanel />
+            <LatencySparkline />
 
             <div className="glass-panel rounded-sm p-4 flex flex-col gap-3">
               <p className="font-mono text-[8px] tracking-[0.3em] text-hud-cyan/40">SYSTEM STATUS</p>
