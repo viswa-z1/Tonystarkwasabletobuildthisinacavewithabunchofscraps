@@ -8,6 +8,7 @@ import VitalsPanel from "@/components/VitalsPanel"
 import RadarSweep from "@/components/RadarSweep"
 import ActivityLog from "@/components/ActivityLog"
 import WeatherPanel from "@/components/WeatherPanel"
+import FocusTimer from "@/components/FocusTimer"
 import ReminderPanel from "@/components/ReminderPanel"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
@@ -205,6 +206,7 @@ export default function DashboardPage() {
               <TranscriptPanel messages={messages} />
             </div>
             <WeatherPanel />
+            <FocusTimer />
             <ReminderPanel />
           </div>
         </div>
