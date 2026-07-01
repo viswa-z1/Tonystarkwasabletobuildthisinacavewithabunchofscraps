@@ -43,12 +43,25 @@ const SYSINFO = [
   { label: "SECURE LINK", value: "AES-256", color: "#00d4ff" },
 ]
 
+const BOOT_MS = BOOT_LINES.length * 480 + 800
+
 function BootScreen() {
   const [line, setLine] = useState(0)
+  const [pct, setPct] = useState(0)
   const cursorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const t = setInterval(() => setLine((p) => Math.min(p + 1, BOOT_LINES.length - 1)), 480)
+    return () => clearInterval(t)
+  }, [])
+
+  useEffect(() => {
+    const start = performance.now()
+    const t = setInterval(() => {
+      const p = Math.min(100, ((performance.now() - start) / BOOT_MS) * 100)
+      setPct(p)
+      if (p >= 100) clearInterval(t)
+    }, 40)
     return () => clearInterval(t)
   }, [])
 
@@ -71,6 +84,19 @@ function BootScreen() {
         </p>
       ))}
       <div ref={cursorRef} className="mt-3 w-1.5 h-4 bg-hud-cyan" />
+
+      <div className="mt-4 w-56 flex flex-col gap-1.5">
+        <div className="h-0.5 w-full bg-hud-cyan/10 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-hud-cyan rounded-full"
+            style={{ width: `${pct}%`, boxShadow: "0 0 6px #00d4ff", transition: "width 0.1s linear" }}
+          />
+        </div>
+        <div className="flex items-center justify-between font-mono text-[8px] tracking-widest text-hud-cyan/40">
+          <span>LOADING</span>
+          <span className="tabular-nums">{Math.round(pct)}%</span>
+        </div>
+      </div>
     </div>
   )
 }
@@ -120,7 +146,7 @@ export default function DashboardPage() {
     const t = setTimeout(() => {
       setBooted(true)
       toast.success("F.R.I.D.A.Y. online. All systems nominal")
-    }, BOOT_LINES.length * 480 + 800)
+    }, BOOT_MS)
     return () => clearTimeout(t)
   }, [])
 
