@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import anime from "animejs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { toast } from "@/stores/toastStore"
 
 export interface Message {
   id: string
@@ -9,8 +10,14 @@ export interface Message {
   text: string
 }
 
+function pad(n: number) {
+  return n.toString().padStart(2, "0")
+}
+
 function MessageRow({ msg }: { msg: Message }) {
   const ref = useRef<HTMLDivElement>(null)
+  const at = useRef(new Date())
+
   useEffect(() => {
     anime({
       targets: ref.current,
@@ -22,20 +29,43 @@ function MessageRow({ msg }: { msg: Message }) {
   }, [msg.role])
 
   const isBot = msg.role === "assistant"
+  const time = `${pad(at.current.getHours())}:${pad(at.current.getMinutes())}`
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(msg.text)
+      toast.info("Copied to clipboard")
+    } catch {
+      toast.warn("Copy blocked by browser")
+    }
+  }
+
   return (
-    <div ref={ref} className={`flex gap-2 ${isBot ? "" : "flex-row-reverse"}`} style={{ opacity: 0 }}>
+    <div ref={ref} className={`group flex gap-2 ${isBot ? "" : "flex-row-reverse"}`} style={{ opacity: 0 }}>
       <span
         className="shrink-0 text-[8px] font-mono tracking-widest pt-0.5 opacity-60"
         style={{ color: isBot ? "#00ff88" : "#00d4ff" }}
       >
         {isBot ? "FRIDAY" : "YOU"}
       </span>
-      <p
-        className="text-[11px] font-mono leading-relaxed"
-        style={{ color: isBot ? "#00ff88bb" : "#00d4ffbb" }}
-      >
-        {msg.text}
-      </p>
+      <div className={`flex flex-col gap-0.5 min-w-0 ${isBot ? "items-start" : "items-end"}`}>
+        <p
+          className="text-[11px] font-mono leading-relaxed"
+          style={{ color: isBot ? "#00ff88bb" : "#00d4ffbb" }}
+        >
+          {msg.text}
+        </p>
+        <div className={`flex items-center gap-2 ${isBot ? "" : "flex-row-reverse"}`}>
+          <span className="font-mono text-[7px] tabular-nums text-hud-cyan/25">{time}</span>
+          <button
+            onClick={copy}
+            aria-label="Copy message"
+            className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100 font-mono text-[7px] tracking-widest text-hud-cyan/35 hover:text-hud-cyan transition-opacity"
+          >
+            COPY
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
