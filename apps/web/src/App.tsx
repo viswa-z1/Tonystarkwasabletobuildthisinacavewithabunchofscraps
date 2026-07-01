@@ -6,6 +6,7 @@ import CommandPalette from "./components/CommandPalette"
 import ToastStack from "./components/ToastStack"
 import ShortcutsOverlay from "./components/ShortcutsOverlay"
 import SettingsPanel from "./components/SettingsPanel"
+import ConfirmDialog from "./components/ConfirmDialog"
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <CommandPalette />
       <ShortcutsOverlay />
       <SettingsPanel />
+      <ConfirmDialog />
       <ToastStack />
     </BrowserRouter>
   )

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useToastStore, type ToastKind } from "@/stores/toastStore"
+import { confirm } from "@/stores/confirmStore"
 
 const COLOR: Record<ToastKind, string> = {
   info: "#00d4ff",
@@ -33,8 +34,18 @@ function ago(at: number, now: number) {
  */
 export default function NotificationCenter() {
   const history = useToastStore((s) => s.history)
-  const clear = useToastStore((s) => s.clearHistory)
+  const clearHistory = useToastStore((s) => s.clearHistory)
   const [now, setNow] = useState(() => Date.now())
+
+  const clear = async () => {
+    const ok = await confirm({
+      title: "CLEAR ALERTS",
+      message: "Remove all recorded alerts from the history. This cannot be undone.",
+      confirmLabel: "CLEAR",
+      danger: true,
+    })
+    if (ok) clearHistory()
+  }
 
   // Keep relative timestamps fresh without animating anything.
   useEffect(() => {
