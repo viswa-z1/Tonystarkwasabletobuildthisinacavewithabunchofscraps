@@ -15,6 +15,7 @@ import NotificationCenter from "@/components/NotificationCenter"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
+import Greeting from "@/components/Greeting"
 import { toast } from "@/stores/toastStore"
 import { useUIStore } from "@/stores/uiStore"
 import { usePrefsStore } from "@/stores/prefsStore"
@@ -155,6 +156,7 @@ export default function DashboardPage() {
             <p className="font-mono text-[8px] text-hud-cyan/35 tracking-[0.2em] mt-0.5">
               FULLY RESPONSIVE INTELLIGENT DIGITAL ASSISTANT FOR YOU
             </p>
+            <Greeting />
           </div>
           <div className="flex items-center gap-4">
             <ConnectionStatus />
