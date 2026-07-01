@@ -5,6 +5,7 @@ export type Density = "comfortable" | "compact"
 
 const MOTION_KEY = "friday.motion"
 const DENSITY_KEY = "friday.density"
+const AMBIENT_KEY = "friday.ambient"
 
 function loadMotion(): MotionPref {
   try {
@@ -26,6 +27,16 @@ function loadDensity(): Density {
   return "comfortable"
 }
 
+function loadAmbient(): boolean {
+  try {
+    const v = localStorage.getItem(AMBIENT_KEY)
+    if (v === "off") return false
+  } catch {
+    /* ignore */
+  }
+  return true
+}
+
 /** Reflect density on the root element so CSS can key off it if needed. */
 function applyDensity(d: Density) {
   if (typeof document === "undefined") return
@@ -38,13 +49,16 @@ applyDensity(initialDensity)
 interface PrefsStore {
   motionPref: MotionPref
   density: Density
+  ambient: boolean
   setMotionPref: (m: MotionPref) => void
   setDensity: (d: Density) => void
+  setAmbient: (v: boolean) => void
 }
 
 export const usePrefsStore = create<PrefsStore>((set) => ({
   motionPref: loadMotion(),
   density: initialDensity,
+  ambient: loadAmbient(),
   setMotionPref: (motionPref) => {
     try {
       localStorage.setItem(MOTION_KEY, motionPref)
@@ -61,5 +75,13 @@ export const usePrefsStore = create<PrefsStore>((set) => ({
     }
     applyDensity(density)
     set({ density })
+  },
+  setAmbient: (ambient) => {
+    try {
+      localStorage.setItem(AMBIENT_KEY, ambient ? "on" : "off")
+    } catch {
+      /* ignore */
+    }
+    set({ ambient })
   },
 }))

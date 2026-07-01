@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { useReducedMotion } from "@/hooks/useReducedMotion"
+import { usePrefsStore } from "@/stores/prefsStore"
 
 interface Particle {
   x: number
@@ -19,6 +20,7 @@ export default function AmbientField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef    = useRef(0)
   const reduce    = useReducedMotion()
+  const ambient   = usePrefsStore((s) => s.ambient)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -71,7 +73,9 @@ export default function AmbientField() {
       window.removeEventListener("resize", onResize)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [reduce])
+  }, [reduce, ambient])
+
+  if (!ambient) return null
 
   return (
     <canvas

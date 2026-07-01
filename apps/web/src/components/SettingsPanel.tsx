@@ -5,6 +5,7 @@ import { usePrefsStore, type MotionPref } from "@/stores/prefsStore"
 import { useReducedMotion } from "@/hooks/useReducedMotion"
 import AccentSwitcher from "@/components/AccentSwitcher"
 import DensityToggle from "@/components/DensityToggle"
+import { Switch } from "@/components/ui/switch"
 
 const MOTION_OPTIONS: { value: MotionPref; label: string }[] = [
   { value: "system", label: "SYSTEM" },
@@ -57,6 +58,8 @@ export default function SettingsPanel() {
   const open = useUIStore((s) => s.settingsOpen)
   const setOpen = useUIStore((s) => s.setSettingsOpen)
   const reduce = useReducedMotion()
+  const ambient = usePrefsStore((s) => s.ambient)
+  const setAmbient = usePrefsStore((s) => s.setAmbient)
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -108,6 +111,14 @@ export default function SettingsPanel() {
         <Field label="ACCENT" hint="ONE HUE, LOCKED">
           <AccentSwitcher />
         </Field>
+
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-0.5">
+            <span className="font-mono text-[10px] tracking-widest text-hud-cyan/70">AMBIENT FIELD</span>
+            <span className="font-mono text-[8px] tracking-widest text-hud-cyan/30">BACKDROP PARTICLES</span>
+          </div>
+          <Switch checked={ambient} onChange={setAmbient} label="Ambient field" />
+        </div>
 
         <div className="mt-auto border-t border-hud-cyan/10 pt-4">
           <p className="font-mono text-[8px] tracking-widest text-hud-cyan/30">
