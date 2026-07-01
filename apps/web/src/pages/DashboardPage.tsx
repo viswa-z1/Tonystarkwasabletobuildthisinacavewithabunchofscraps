@@ -15,6 +15,7 @@ import NotificationCenter from "@/components/NotificationCenter"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import StatusStrip from "@/components/StatusStrip"
+import ScrollArea from "@/components/ui/scroll-area"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import Greeting from "@/components/Greeting"
 import Tooltip from "@/components/ui/tooltip"
@@ -181,7 +182,7 @@ export default function DashboardPage() {
         <div className={`panel opacity-0 flex-1 grid grid-cols-3 ${gap} min-h-0`}>
 
           {/* Left — system widgets rail */}
-          <div className={`col-span-1 flex flex-col ${gap} min-h-0 overflow-y-auto pr-1`}>
+          <ScrollArea className="col-span-1" innerClassName={`flex flex-col ${gap} pr-1`}>
             <ArcReactor />
             <ClockPanel />
             <WorldClocks />
@@ -200,7 +201,7 @@ export default function DashboardPage() {
             <VitalsPanel />
             <RadarSweep />
             <ActivityLog />
-          </div>
+          </ScrollArea>
 
           {/* Center — orb + waveform */}
           <div className="col-span-1 flex flex-col items-center justify-center gap-5">
@@ -212,7 +213,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Right — transcript + weather + reminders rail */}
-          <div className={`col-span-1 flex flex-col ${gap} min-h-0 overflow-y-auto pr-1`}>
+          <ScrollArea className="col-span-1" innerClassName={`flex flex-col ${gap} pr-1`}>
             <div className="flex-1 min-h-[140px]">
               <TranscriptPanel messages={messages} />
             </div>
@@ -220,7 +221,7 @@ export default function DashboardPage() {
             <FocusTimer />
             <ReminderPanel />
             <NotificationCenter />
-          </div>
+          </ScrollArea>
         </div>
 
         {/* News + market tickers */}
