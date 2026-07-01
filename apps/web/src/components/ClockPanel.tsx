@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { usePrefsStore } from "@/stores/prefsStore"
 
 function pad(n: number) {
   return n.toString().padStart(2, "0")
@@ -18,13 +19,17 @@ function fmtUptime(ms: number) {
 export default function ClockPanel() {
   const [now, setNow] = useState(() => new Date())
   const mountedAt = useRef(Date.now())
+  const clock24 = usePrefsStore((s) => s.clock24)
 
   useEffect(() => {
     const t = setInterval(() => setNow(new Date()), 1000)
     return () => clearInterval(t)
   }, [])
 
-  const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
+  const h24 = now.getHours()
+  const suffix = clock24 ? "" : h24 >= 12 ? " PM" : " AM"
+  const h = clock24 ? h24 : h24 % 12 || 12
+  const time = `${pad(h)}:${pad(now.getMinutes())}:${pad(now.getSeconds())}${suffix}`
   const date = now
     .toLocaleDateString("en-US", { weekday: "short", month: "short", day: "2-digit", year: "numeric" })
     .toUpperCase()

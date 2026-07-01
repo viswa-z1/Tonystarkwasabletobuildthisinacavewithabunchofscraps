@@ -6,6 +6,7 @@ export type Density = "comfortable" | "compact"
 const MOTION_KEY = "friday.motion"
 const DENSITY_KEY = "friday.density"
 const AMBIENT_KEY = "friday.ambient"
+const CLOCK_KEY = "friday.clock24"
 
 function loadMotion(): MotionPref {
   try {
@@ -37,6 +38,16 @@ function loadAmbient(): boolean {
   return true
 }
 
+function loadClock24(): boolean {
+  try {
+    const v = localStorage.getItem(CLOCK_KEY)
+    if (v === "12") return false
+  } catch {
+    /* ignore */
+  }
+  return true
+}
+
 /** Reflect density on the root element so CSS can key off it if needed. */
 function applyDensity(d: Density) {
   if (typeof document === "undefined") return
@@ -50,15 +61,18 @@ interface PrefsStore {
   motionPref: MotionPref
   density: Density
   ambient: boolean
+  clock24: boolean
   setMotionPref: (m: MotionPref) => void
   setDensity: (d: Density) => void
   setAmbient: (v: boolean) => void
+  setClock24: (v: boolean) => void
 }
 
 export const usePrefsStore = create<PrefsStore>((set) => ({
   motionPref: loadMotion(),
   density: initialDensity,
   ambient: loadAmbient(),
+  clock24: loadClock24(),
   setMotionPref: (motionPref) => {
     try {
       localStorage.setItem(MOTION_KEY, motionPref)
@@ -83,5 +97,13 @@ export const usePrefsStore = create<PrefsStore>((set) => ({
       /* ignore */
     }
     set({ ambient })
+  },
+  setClock24: (clock24) => {
+    try {
+      localStorage.setItem(CLOCK_KEY, clock24 ? "24" : "12")
+    } catch {
+      /* ignore */
+    }
+    set({ clock24 })
   },
 }))

@@ -60,6 +60,8 @@ export default function SettingsPanel() {
   const reduce = useReducedMotion()
   const ambient = usePrefsStore((s) => s.ambient)
   const setAmbient = usePrefsStore((s) => s.setAmbient)
+  const clock24 = usePrefsStore((s) => s.clock24)
+  const setClock24 = usePrefsStore((s) => s.setClock24)
   const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -118,6 +120,14 @@ export default function SettingsPanel() {
             <span className="font-mono text-[8px] tracking-widest text-hud-cyan/30">BACKDROP PARTICLES</span>
           </div>
           <Switch checked={ambient} onChange={setAmbient} label="Ambient field" />
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-0.5">
+            <span className="font-mono text-[10px] tracking-widest text-hud-cyan/70">24-HOUR CLOCK</span>
+            <span className="font-mono text-[8px] tracking-widest text-hud-cyan/30">LOCAL TIME FORMAT</span>
+          </div>
+          <Switch checked={clock24} onChange={setClock24} label="24 hour clock" />
         </div>
 
         <div className="mt-auto border-t border-hud-cyan/10 pt-4">
