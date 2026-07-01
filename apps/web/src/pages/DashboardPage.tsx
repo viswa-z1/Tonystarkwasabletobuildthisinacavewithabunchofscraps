@@ -23,6 +23,7 @@ import { usePrefsStore } from "@/stores/prefsStore"
 import WaveformVisualizer from "@/components/WaveformVisualizer"
 import StatusBar from "@/components/StatusBar"
 import ConnectionStatus from "@/components/ConnectionStatus"
+import FpsMeter from "@/components/FpsMeter"
 import TranscriptPanel, { Message } from "@/components/TranscriptPanel"
 
 const BOOT_LINES = [
@@ -160,6 +161,7 @@ export default function DashboardPage() {
             <Greeting />
           </div>
           <div className="flex items-center gap-4">
+            <Tooltip label="RENDER RATE"><FpsMeter /></Tooltip>
             <ConnectionStatus />
             <StatusBar />
             <Tooltip label="SETTINGS" side="bottom">
