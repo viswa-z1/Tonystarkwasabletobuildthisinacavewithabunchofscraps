@@ -16,6 +16,7 @@ import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import Greeting from "@/components/Greeting"
+import Tooltip from "@/components/ui/tooltip"
 import { toast } from "@/stores/toastStore"
 import { useUIStore } from "@/stores/uiStore"
 import { usePrefsStore } from "@/stores/prefsStore"
@@ -161,13 +162,15 @@ export default function DashboardPage() {
           <div className="flex items-center gap-4">
             <ConnectionStatus />
             <StatusBar />
-            <button
-              onClick={() => setSettingsOpen(true)}
-              aria-label="Open settings"
-              className="font-mono text-sm leading-none text-hud-cyan/55 hover:text-hud-cyan border border-hud-cyan/20 hover:border-hud-cyan/45 rounded-sm w-7 h-7 flex items-center justify-center transition-colors"
-            >
-              <span aria-hidden>⚙</span>
-            </button>
+            <Tooltip label="SETTINGS" side="bottom">
+              <button
+                onClick={() => setSettingsOpen(true)}
+                aria-label="Open settings"
+                className="font-mono text-sm leading-none text-hud-cyan/55 hover:text-hud-cyan border border-hud-cyan/20 hover:border-hud-cyan/45 rounded-sm w-7 h-7 flex items-center justify-center transition-colors"
+              >
+                <span aria-hidden>⚙</span>
+              </button>
+            </Tooltip>
           </div>
         </div>
 
