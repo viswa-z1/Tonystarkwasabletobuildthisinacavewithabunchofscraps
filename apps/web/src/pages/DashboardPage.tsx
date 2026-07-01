@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import anime from "animejs"
 import HUDOverlay from "@/components/HUDOverlay"
 import ArcReactor from "@/components/ArcReactor"
@@ -192,6 +193,15 @@ export default function DashboardPage() {
             <Tooltip label="RENDER RATE"><FpsMeter /></Tooltip>
             <ConnectionStatus />
             <StatusBar />
+            <Tooltip label="SESSION HISTORY" side="bottom">
+              <Link
+                to="/history"
+                aria-label="Session history"
+                className="font-mono text-[9px] tracking-widest text-hud-cyan/55 hover:text-hud-cyan border border-hud-cyan/20 hover:border-hud-cyan/45 rounded-sm px-2 h-7 flex items-center gap-1 transition-colors"
+              >
+                <span aria-hidden>◷</span> HISTORY
+              </Link>
+            </Tooltip>
             <Tooltip label="SETTINGS" side="bottom">
               <button
                 onClick={() => setSettingsOpen(true)}
