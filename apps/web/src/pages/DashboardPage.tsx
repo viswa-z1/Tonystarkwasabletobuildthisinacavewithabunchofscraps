@@ -14,6 +14,7 @@ import ReminderPanel from "@/components/ReminderPanel"
 import NotificationCenter from "@/components/NotificationCenter"
 import NewsTicker from "@/components/NewsTicker"
 import StockTicker from "@/components/StockTicker"
+import StatusStrip from "@/components/StatusStrip"
 import VoiceOrb, { OrbState } from "@/components/VoiceOrb"
 import Greeting from "@/components/Greeting"
 import Tooltip from "@/components/ui/tooltip"
@@ -229,13 +230,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Bottom bar */}
-        <div className="panel opacity-0 flex items-center justify-between">
-          <span className="font-mono text-[8px] text-hud-cyan/25 tracking-widest">
-            SECURE CHANNEL · AES-256-GCM
-          </span>
-          <span className="font-mono text-[8px] text-hud-cyan/25 tracking-widest animate-hud-flicker">
-            LIVEKIT BRIDGE · MCP ACTIVE
-          </span>
+        <div className="panel opacity-0">
+          <StatusStrip />
         </div>
 
       </div>
